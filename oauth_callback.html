@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OAuth Callback</title>
+  <script>
+    // Lấy mã xác thực từ URL và gửi đến server của bạn
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const authCode = urlParams.get('code'); // Mã xác thực từ URL
+
+      if (authCode) {
+        // Gửi mã xác thực đến server của bạn
+        fetch('https://your-server-url/oauth_callback', {  // Thay URL này với server thực tế của bạn
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code: authCode })
+        }).then(response => {
+          document.body.innerHTML = '<h1>Xác thực thành công!</h1>';
+        }).catch(error => {
+          document.body.innerHTML = '<h1>Có lỗi xảy ra.</h1>';
+          console.error(error);
+        });
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Đang xử lý...</h1>
+</body>
+</html>
